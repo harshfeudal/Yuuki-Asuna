@@ -64,7 +64,7 @@ int main()
 			Please note:
 				- The slash commands are under-construction!
 				- If you want to use it in Visual Studio, make a new file called `config.json`.
-				- Place your token and guild ID in there, at the same directory of `.gitignore`.
+				- Place your token and guild ID in there, at the same directory of scr folder (not inside it!).
 				- I confirmed it works ayyy :>
 
 			Thanks!
