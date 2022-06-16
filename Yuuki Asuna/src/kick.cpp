@@ -22,27 +22,19 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 		Thanks!
 	*/
 
-	/* ---------------- Under-construction ----------------
-	
-	// Set reply connect when kick
-	std::string message_content = fmt::format(
-		// I'll soon put the target_user, event.command.usr and reason here
-		"Asuna has kicked `{}`, requested from `{}` :(\nFor reason: {}"
-	);
+	/* ------------------- I still making it, please wait ------------------- */
+#pragma region constructing
 
-	// Reply when kick
-	event.reply(
-		dpp::message()
-		.set_content(message_content)
-	);
+	// ...
 
-	*/
+#pragma endregion
+	/* ---------------------------------------------------------------------- */
 
 	// Under-testing if this works (will deleted this command soon)
 	event.reply(
 		dpp::message()
 		.set_flags(dpp::m_ephemeral)
-		.set_content("Under-construction")
+		.set_content("Under-construction kick command")
 	);
 
 	// Interaction reply check

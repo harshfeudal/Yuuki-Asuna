@@ -6,6 +6,7 @@
 // Project include
 #include "../commands/handler.h"
 #include "../commands/ping.h"
+#include "../commands/info.h"
 #include "../commands/kick.h"
 
 // Dpp include
@@ -22,6 +23,9 @@ std::map<std::string, cmd_def> commands
 	// Inspired JSON style, remember the name is lowercase
 	{
 		"ping", { "Check Asuna latecy", ping_h }
+	},
+	{
+		"info", { "Show more information about Asuna bot :>", info_h }
 	},
 	{
 		"kick", 
@@ -50,8 +54,8 @@ int main()
 	const dpp::snowflake guild_id = reader["guild_id"];
 	const dpp::snowflake client_id = reader["client_id"];
 
-	// Bot access
-	dpp::cluster client(token);
+	// Bot access, with intents 32767 like JS
+	dpp::cluster client(token, dpp::i_all_intents);
 
 	/* ------------ After here, we can use client ------------ */
 

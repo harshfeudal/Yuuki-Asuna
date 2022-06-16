@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\info.cpp" />
     <ClCompile Include="src\kick.cpp" />
     <ClCompile Include="src\ping.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commands\handler.h" />
+    <ClInclude Include="commands\info.h" />
     <ClInclude Include="commands\kick.h" />
     <ClInclude Include="include\dpp-include-10.0\dpp\appcommand.h" />
     <ClInclude Include="include\dpp-include-10.0\dpp\application.h" />

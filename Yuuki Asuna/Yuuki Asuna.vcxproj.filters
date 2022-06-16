@@ -24,6 +24,9 @@
     <ClCompile Include="src\kick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\info.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\dpp-lib-10.0\dpp.cmake" />
@@ -259,6 +262,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="commands\kick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="commands\info.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
