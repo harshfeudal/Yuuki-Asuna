@@ -23,11 +23,9 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 	*/
 
 	/* ------------------- I still making it, please wait ------------------- */
-#pragma region constructing
 
-	// ...
+	// .has() permission is planning ...
 
-#pragma endregion
 	/* ---------------------------------------------------------------------- */
 
 	// Under-testing if this works (will deleted this command soon)
