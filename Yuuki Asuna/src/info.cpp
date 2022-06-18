@@ -10,13 +10,13 @@ void info_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 	/* ------------------- I still making it, please wait ------------------- */
 
 	// The info command will be used menu system, we have a lot of info!
-	dpp::message content("Please choose a category you'd like to know");
+	dpp::message content("Select a category you'd like to know");
 
 	// Add component
 	content.add_component(
 		dpp::component().add_component(
 			dpp::component().set_type(dpp::cot_selectmenu)
-			.set_placeholder("Information categories")
+			.set_placeholder("Select one")
 			.add_select_option(
 				dpp::select_option(
 					"About me",
@@ -29,15 +29,46 @@ void info_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 					"avatar_username",
 					"Information about this bot avatar and username"
 				))
+			.add_select_option(
+				dpp::select_option(
+					"Commands",
+					"commands",
+					"Commands usage and permission"
+				))
+			.add_select_option(
+				dpp::select_option(
+					"Invite & Support",
+					"invite_support",
+					"Invite link and support server for this bot"
+				))
+			.add_select_option(
+				dpp::select_option(
+					"Guilds & Shards",
+					"guilds_shards",
+					"Guilds and shards detail"
+				))
+			.add_select_option(
+				dpp::select_option(
+					"Source code",
+					"source_code",
+					"Github link for bot source code"
+				))
+			.add_select_option(
+				dpp::select_option(
+					"Vote",
+					"vote",
+					"Vote for this bot!"
+				))
 			.set_id("information")
 		)
 	);
 
-	// Create a message with the content
+	// Reply a message with the content
 	event.reply(
 		content.set_flags(dpp::m_ephemeral)
 	);
 	
+	// Put while testing (delete soon)
 	client.on_select_click([&client](const dpp::select_click_t& event) {
 		event.reply(
 			dpp::message()
