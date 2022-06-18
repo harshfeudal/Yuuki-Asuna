@@ -26,6 +26,13 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 
 	// .has() permission is planning ...
 
+	auto* guild_find = dpp::find_guild(event.command.guild_id);
+	if (guild_find->base_permissions(&event.command.usr).has(dpp::p_kick_members))
+	{
+		// client.guild_member_kick(guild_find, target_user);
+		// client.set_audit_reason(reason);
+	}
+
 	/*
 	Advise code:
 
