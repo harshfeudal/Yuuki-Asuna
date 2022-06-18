@@ -21,25 +21,31 @@ void info_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 				dpp::select_option(
 					"About me",
 					"about",
-					"About this bot"
+					"About Yuuki Asuna"
 				))
 			.add_select_option(
 				dpp::select_option(
 					"Avatar and Username",
 					"avatar_username",
-					"Information about this bot avatar and username"
+					"Information about Asuna avatar and username"
+				))
+			.add_select_option(
+				dpp::select_option(
+					"Asuna status",
+					"status",
+					"Show Asuna working status"
 				))
 			.add_select_option(
 				dpp::select_option(
 					"Commands",
 					"commands",
-					"Commands usage and permission"
+					"Commands usage and permission from Asuna"
 				))
 			.add_select_option(
 				dpp::select_option(
 					"Invite & Support",
 					"invite_support",
-					"Invite link and support server for this bot"
+					"Invite link and support server"
 				))
 			.add_select_option(
 				dpp::select_option(
@@ -51,13 +57,13 @@ void info_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 				dpp::select_option(
 					"Source code",
 					"source_code",
-					"Github link for bot source code"
+					"Github link for Asuna source code"
 				))
 			.add_select_option(
 				dpp::select_option(
 					"Vote",
 					"vote",
-					"Vote for this bot!"
+					"Vote for Asuna!"
 				))
 			.set_id("information")
 		)
