@@ -70,6 +70,9 @@ int main()
 
 	/* ------------ After here, we can use client ------------ */
 
+	// Console log (if you don't want to log, just do the note like me)
+	client.on_log(dpp::utility::cout_logger());
+
 	// Bot ready
 	client.on_ready([&client, guild_id, client_id](const dpp::ready_t& event) {
 		fmt::print("Log in as {}.\n", client.me.format_username());
@@ -139,9 +142,6 @@ int main()
 			cmd_filter->second.func(client, event);
 		}
 	});
-
-	// Console log (if you don't want to log, just do the note like me)
-	// client.on_log(dpp::utility::cout_logger());
 
 	// Bot start
 	client.start(false);

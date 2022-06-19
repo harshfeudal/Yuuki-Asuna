@@ -30,8 +30,8 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 	auto* guild_find = dpp::find_guild(event.command.guild_id);
 	dpp::snowflake guild_target = event.command.guild_id;
 
-	// Find the command.usr role
-	// auto command_target_user_role = dpp::find_role();
+	// Find the bot position role
+	
 	
 	/*
 		Note:
