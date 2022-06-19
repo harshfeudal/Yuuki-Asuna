@@ -33,9 +33,15 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 
 	/* ------------------- I still making it, please wait ------------------- */
 
-	// Role check is making ...
+	/*
+		Please note:
+			- To avoid NULL pointer, I have make `if (guild_find) to prevent
+			NULL pointer warning.
+			- For more information about this way, please head up to:
+			https://docs.microsoft.com/en-us/cpp/code-quality/c6011?view=msvc-170
 
-	// Button is making
+		Thanks!
+	*/
 
 	// If the interaction location is not a guild
 	if (!guild_find)
@@ -46,16 +52,6 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 			.set_content("You cannot use this command outside the server")
 		);
 	}
-
-	/*
-		Please note:
-			- To avoid NULL pointer, I have make `if (guild_find) to prevent 
-			NULL pointer warning.
-			- For more information about this way, please head up to: 
-			https://docs.microsoft.com/en-us/cpp/code-quality/c6011?view=msvc-170
-		
-		Thanks!
-	*/
 
 	// Check permission: if they don't have KICK_MEMBERS permission
 	if (guild_find)
@@ -82,8 +78,42 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 		client.set_audit_reason(reason);
 	}
 
+	// Role check is making ...
+
+	// Confirmation button
+	dpp::message kick_confirm("Do you want to kick? Press the button below to confirm");
+
+	kick_confirm.add_component(
+		dpp::component()
+			.add_component(
+				dpp::component()
+					.set_label("Kick")
+					.set_type(dpp::cot_button)
+					.set_style(dpp::cos_danger)
+					.set_id("kick_id")
+			).add_component(
+				dpp::component()
+				.set_label("Cancel")
+				.set_type(dpp::cot_button)
+				.set_style(dpp::cos_secondary)
+				.set_id("cancel_id")
+			)
+	);
+
+	event.reply(
+		kick_confirm.set_flags(dpp::m_ephemeral)
+	);
+
+	/*
+		I got an error:
+
+		[Sun Jun 19 20:16:41 2022
+		] ERROR: Error 40060 [Interaction has already been acknowledged.] on API request, 
+		returned content was: {"message": "Interaction has already been acknowledged.", "code": 40060}
+	*/
+
 	// Kick member
-	client.guild_member_kick(guild_target, user_targeted);
+	// client.guild_member_kick(guild_target, user_targeted);
 
 	// Remake the reply section
 
