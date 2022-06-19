@@ -33,8 +33,18 @@ std::map<std::string, cmd_def> commands
 			{ 
 				"Asuna will kick a member you mentioned", kick_h,
 				{
-					dpp::command_option(dpp::co_mentionable, "member", "Mention a member to kick", true),
-					dpp::command_option(dpp::co_string, "reason", "Reason why they got kick", false)
+					dpp::command_option(
+						dpp::co_mentionable, 
+						"member", 
+						"Mention a member to kick", 
+						true
+					),
+					dpp::command_option(
+						dpp::co_string, 
+						"reason", 
+						"Reason why they got kick", 
+						false
+					)
 				}
 			}
 	},
@@ -43,8 +53,26 @@ std::map<std::string, cmd_def> commands
 			{
 				"Asuna will ban a member you mentioned", ban_h,
 				{
-					dpp::command_option(dpp::co_mentionable, "member", "Mention a member to ban", true),
-					dpp::command_option(dpp::co_string, "reason", "Reason why they got ban", false)
+					dpp::command_option(
+						dpp::co_mentionable, 
+						"member", 
+						"Mention a member to ban", 
+						true
+					),
+					dpp::command_option(
+						dpp::co_string, 
+						"reason", 
+						"Reason why they got ban", 
+						false
+					)
+				/*
+					dpp::command_option(
+						dpp::co_integer, 
+						"day", 
+						"Purge their messages within 7 days", 
+						false
+					)
+				*/
 				}
 			}
 	}

@@ -13,25 +13,13 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 
 	// Making reason
 	auto target_reason = event.get_parameter("reason");
-
-	// Check if we have reason or not
-	if (std::holds_alternative<std::string>(target_reason)) 
-	{
-		std::string reason = std::get<std::string>(target_reason);
-		client.set_audit_reason(reason);
-	}
-	else
-	{
-		std::string reason = "No reason provided";
-		client.set_audit_reason(reason);
-	}
+	std::string reason;
 
 	// Guild find and get the guild ID
 	auto* guild_find = dpp::find_guild(event.command.guild_id);
 	dpp::snowflake guild_target = event.command.guild_id;
 
 	// Find the bot position role
-	
 	
 	/*
 		Note:
@@ -59,27 +47,53 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 		);
 	}
 
+	/*
+		Please note:
+			- To avoid NULL pointer, I have make `if (guild_find) to prevent 
+			NULL pointer warning.
+			- For more information about this way, please head up to: 
+			https://docs.microsoft.com/en-us/cpp/code-quality/c6011?view=msvc-170
+		
+		Thanks!
+	*/
+
 	// Check permission: if they don't have KICK_MEMBERS permission
-	if (!(guild_find->base_permissions(&event.command.usr).has(dpp::p_kick_members)))
+	if (guild_find)
 	{
-		event.reply(
-			dpp::message()
-			.set_flags(dpp::m_ephemeral)
-			.set_content("You have lack of permission to kick :(")
-		);
+		if (!(guild_find->base_permissions(&event.command.usr).has(dpp::p_kick_members)))
+		{
+			event.reply(
+				dpp::message()
+				.set_flags(dpp::m_ephemeral)
+				.set_content("You have lack of permission to kick :(")
+			);
+		}
 	}
 
+	// Check if we have reason or not
+	if (std::holds_alternative<std::string>(target_reason))
+	{
+		reason = std::get<std::string>(target_reason);
+		client.set_audit_reason(reason);
+	}
+	else
+	{
+		reason = "No kick reason provided";
+		client.set_audit_reason(reason);
+	}
+
+	// Kick member
 	client.guild_member_kick(guild_target, user_targeted);
 
 	// Remake the reply section
 
 	// Reply when got kicked
-	std::string kick_ephemeral_content = fmt::format("<@{}> has been kicked!", user_targeted);
+	std::string kick_content = fmt::format("<@{}> has been kicked!", user_targeted);
 
 	event.reply(
 		dpp::message()
 		.set_flags(dpp::m_ephemeral)
-		.set_content(kick_ephemeral_content)
+		.set_content(kick_content)
 	);
 
 	/* ---------------------------------------------------------------------- */	

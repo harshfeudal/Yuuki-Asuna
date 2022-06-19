@@ -9,47 +9,97 @@ void ban_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 {
 	// Target a user mentioned
 	auto target_user = event.get_parameter("member");
+	dpp::snowflake user_targeted = std::get<dpp::snowflake>(target_user);
 
 	// Making reason
-	auto reason = event.get_parameter("reason");
+	auto target_reason = event.get_parameter("reason");
+	std::string reason;
+
+	// Message purge day
+	auto purgeDay = event.get_parameter("day");
+
+	// Guild find and get the guild ID
+	auto* guild_find = dpp::find_guild(event.command.guild_id);
+	dpp::snowflake guild_target = event.command.guild_id;
+
+	// Find the bot position role
 
 	/*
 		Note:
-		- Permission will be checked using Dpp system,
-		I no need to make a single check like Discord.js
-		- It's still under-construction!
+			- It's still under-construction!
+			- Role check is still under process!
+			- I decide to make button too, since we need to confirm that they want to kick,
+			not a mistake.
 
 		Thanks!
 	*/
 
 	/* ------------------- I still making it, please wait ------------------- */
 
-	// .has() permission is planning ...
+	// Role check is making ...
+
+	// Button is making
+
+	// If the interaction location is not a guild
+	if (!guild_find)
+	{
+		event.reply(
+			dpp::message()
+			.set_flags(dpp::m_ephemeral)
+			.set_content("You cannot use this command outside the server")
+		);
+	}
 
 	/*
-	Advise code:
+		Please note:
+			- To avoid NULL pointer, I have make `if (guild_find) to prevent
+			NULL pointer warning.
+			- For more information about this way, please head up to:
+			https://docs.microsoft.com/en-us/cpp/code-quality/c6011?view=msvc-170
 
-	Type 1:
-	std::accumulate(guild_member.roles.cbegin(), guild_member.roles.cend(), false, [](bool ret, dpp::role const& role) -> bool {
-		return ret || role.has_ban_members();
-		}));
-
-	Type 2:
-	auto* guild = dpp::find_guild(event.command.guild_id);
-	if (!guild) { handle uncached guild case }
-	if (guild->base_permissions(&event.command.usr).has(dpp::p_ban_members)) {
-
-	}
+		Thanks!
 	*/
 
-	/* ---------------------------------------------------------------------- */
+	// Check permission: if they don't have KICK_MEMBERS permission
+	if (guild_find)
+	{
+		if (!(guild_find->base_permissions(&event.command.usr).has(dpp::p_ban_members)))
+		{
+			event.reply(
+				dpp::message()
+				.set_flags(dpp::m_ephemeral)
+				.set_content("You have lack of permission to ban :(")
+			);
+		}
+	}
 
-	// Under-testing if this works (will deleted this command soon)
+	// Check if we have reason or not
+	if (std::holds_alternative<std::string>(target_reason))
+	{
+		reason = std::get<std::string>(target_reason);
+		client.set_audit_reason(reason);
+	}
+	else
+	{
+		reason = "No ban reason provided";
+		client.set_audit_reason(reason);
+	}
+	
+	// Ban member (still stuck)
+	// ...
+
+	// Remake the reply section
+
+	// Reply when got kicked
+	std::string ban_content = fmt::format("<@{}> has been kicked!", user_targeted);
+
 	event.reply(
 		dpp::message()
 		.set_flags(dpp::m_ephemeral)
-		.set_content("Under-construction ban command")
+		.set_content(ban_content)
 	);
+
+	/* ---------------------------------------------------------------------- */
 
 	// Interaction reply check
 	fmt::print(
