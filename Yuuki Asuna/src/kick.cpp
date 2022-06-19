@@ -66,18 +66,6 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 		}
 	}
 
-	// Check if we have reason or not
-	if (std::holds_alternative<std::string>(target_reason))
-	{
-		reason = std::get<std::string>(target_reason);
-		client.set_audit_reason(reason);
-	}
-	else
-	{
-		reason = "No kick reason provided";
-		client.set_audit_reason(reason);
-	}
-
 	// Role check is making ...
 
 	// Confirmation button
@@ -112,19 +100,48 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 		returned content was: {"message": "Interaction has already been acknowledged.", "code": 40060}
 	*/
 
-	// Kick member
-	// client.guild_member_kick(guild_target, user_targeted);
+	// Check if we have reason or not
+	if (std::holds_alternative<std::string>(target_reason))
+	{
+		reason = std::get<std::string>(target_reason);
+	}
+	else
+	{
+		reason = "No kick reason provided";
+	}
 
-	// Remake the reply section
+	client.on_button_click([&client, reason, user_targeted, guild_target](const dpp::button_click_t& event) {
+		if (event.custom_id == "kick_id")
+		{
+			// Provide reason audit log
+			client.set_audit_reason(reason);
 
-	// Reply when got kicked
-	std::string kick_content = fmt::format("<@{}> has been kicked!", user_targeted);
+			// Kick member
+			client.guild_member_kick(guild_target, user_targeted);
 
-	event.reply(
-		dpp::message()
-		.set_flags(dpp::m_ephemeral)
-		.set_content(kick_content)
-	);
+			// Announce when kicked
+			std::string kick_content = fmt::format("<@{}> has been kicked!", user_targeted);
+
+			// Reply when got kicked
+			event.reply(
+				dpp::message()
+				.set_flags(dpp::m_ephemeral)
+				.set_content(kick_content)
+			);
+		}
+		else if (event.custom_id == "cancel_id")
+		{
+			// Announce when cancelled
+			std::string cancel_content("Cancelled request!");
+
+			// Reply when cancelled
+			event.reply(
+				dpp::message()
+				.set_flags(dpp::m_ephemeral)
+				.set_content(cancel_content)
+			);
+		}
+		});
 
 	/* ---------------------------------------------------------------------- */	
 
