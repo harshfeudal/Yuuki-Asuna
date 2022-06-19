@@ -93,11 +93,9 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 	);
 
 	/*
-		I got an error:
-
-		[Sun Jun 19 20:16:41 2022
-		] ERROR: Error 40060 [Interaction has already been acknowledged.] on API request, 
-		returned content was: {"message": "Interaction has already been acknowledged.", "code": 40060}
+		- I got an error:
+			] ERROR: Error 10015 [Unknown Webhook] on API request, returned 
+			content was: {"message": "Unknown Webhook", "code": 10015}
 	*/
 
 	// Check if we have reason or not
@@ -128,6 +126,12 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 				.set_flags(dpp::m_ephemeral)
 				.set_content(kick_content)
 			);
+
+			// Interaction reply check
+			fmt::print(
+				"[running] kick command - kick button replied from {}\n",
+				event.command.usr.format_username()
+			);
 		}
 		else if (event.custom_id == "cancel_id")
 		{
@@ -139,6 +143,12 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 				dpp::message()
 				.set_flags(dpp::m_ephemeral)
 				.set_content(cancel_content)
+			);
+
+			// Interaction reply check
+			fmt::print(
+				"[running] kick command - cancel button replied from {}\n",
+				event.command.usr.format_username()
 			);
 		}
 		});
