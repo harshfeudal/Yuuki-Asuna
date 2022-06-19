@@ -16,6 +16,11 @@
  - You can encourage me by joining my [Discord server](https://discord.gg/6Faaqhaqjs) if you prefer too, since the server is kindly dead, not the same as before :(
  - You can probably help me to develop this project too by DM me on my [Discord profile (Harshfeudal#0001)](https://discord.com/users/622450109317251088)
 
+ ### Contribution and Pull Request
+ I'd probably glad to see if you have anything new to help and support me. To do that, please make a pull request and before you request a new pull request, make sure that you've tested the code by using your bot. I won't bite you if you do wrong, but just make sure that you need to test it clearly before I merge it.
+
+ Also, if you want to collaborate with me, just get in touch with me via my [Discord server](https://discord.gg/BCrPzkhdnv)!
+
 ### Special thanks
 I’d glad to thanks [Dpp Discord Server](https://discord.gg/dpp) and everyone in there for helping me in making this bot. Without them, the bot may not be well-developed and result a crash. 
 
