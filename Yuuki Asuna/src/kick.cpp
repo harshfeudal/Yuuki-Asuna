@@ -98,8 +98,10 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 
 	/*
 		- I got an error:
-		] ERROR: Error 10003 [Unknown Channel] on API request, 
-		returned content was: {"message": "Unknown Channel", "code": 10003}
+			1. ] ERROR: Error 10003 [Unknown Channel] on API request, 
+			returned content was: {"message": "Unknown Channel", "code": 10003}
+			2. ] ERROR: Error 10015 [Unknown Webhook] on API request, returned
+			content was: {"message": "Unknown Webhook", "code": 10015}
 	*/
 
 	client.on_button_click([&client, reason, user_targeted, guild_target](const dpp::button_click_t& event) {
@@ -115,7 +117,7 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 			std::string kick_content = fmt::format("<@{}> has been kicked!", user_targeted);
 
 			// Reply when got kicked
-			client.message_edit(
+			event.edit_response(
 				dpp::message()
 				.set_flags(dpp::m_ephemeral)
 				.set_content(kick_content)
@@ -133,7 +135,7 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 			std::string cancel_content("Cancelled request!");
 
 			// Reply when cancelled
-			client.message_edit(
+			event.edit_response(
 				dpp::message()
 				.set_flags(dpp::m_ephemeral)
 				.set_content(cancel_content)

@@ -101,8 +101,10 @@ void ban_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 
 	/*
 		- I got an error:
-			] ERROR: Error 10003 [Unknown Channel] on API request,
+			1. ] ERROR: Error 10003 [Unknown Channel] on API request,
 			returned content was: {"message": "Unknown Channel", "code": 10003}
+			2. ] ERROR: Error 10015 [Unknown Webhook] on API request, returned
+			content was: {"message": "Unknown Webhook", "code": 10015}
 	*/
 
 	client.on_button_click([&client, reason, user_targeted, guild_target](const dpp::button_click_t& event) {
