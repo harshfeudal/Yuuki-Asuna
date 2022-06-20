@@ -94,7 +94,6 @@ void info_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 		);
 		});
 
-
 	/* ---------------------------------------------------------------------- */
 
 	// Interaction reply check
