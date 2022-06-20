@@ -30,14 +30,6 @@ void ban_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 			- Role check is still under process!
 			- I decide to make button too, since we need to confirm that they want to kick,
 			not a mistake.
-
-		Thanks!
-	*/
-
-	/* ------------------- I still making it, please wait ------------------- */
-
-	/*
-		Please note:
 			- To avoid NULL pointer, I have make `if (guild_find) to prevent
 			NULL pointer warning.
 			- For more information about this way, please head up to:
@@ -45,6 +37,8 @@ void ban_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 
 		Thanks!
 	*/
+
+	/* ------------------- I still making it, please wait ------------------- */
 
 	// If the interaction location is not a guild
 	if (!guild_find)
@@ -56,7 +50,7 @@ void ban_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 		);
 	}
 
-	// Check permission: if they don't have KICK_MEMBERS permission
+	// Check permission: if they don't have BAN_MEMBERS permission
 	if (guild_find)
 	{
 		if (!(guild_find->base_permissions(&event.command.usr).has(dpp::p_kick_members)))
@@ -70,6 +64,16 @@ void ban_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 	}
 
 	// Role check is making ...
+	
+	// Check if we have reason or not
+	if (std::holds_alternative<std::string>(target_reason))
+	{
+		reason = std::get<std::string>(target_reason);
+	}
+	else
+	{
+		reason = "No kick reason provided";
+	}
 
 	// Confirmation button
 	dpp::message ban_confirm("Do you want to ban? Press the button below to confirm");
@@ -97,19 +101,9 @@ void ban_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 
 	/*
 		- I got an error:
-			] ERROR: Error 10015 [Unknown Webhook] on API request, returned
-			content was: {"message": "Unknown Webhook", "code": 10015}
+			] ERROR: Error 10003 [Unknown Channel] on API request,
+			returned content was: {"message": "Unknown Channel", "code": 10003}
 	*/
-
-	// Check if we have reason or not
-	if (std::holds_alternative<std::string>(target_reason))
-	{
-		reason = std::get<std::string>(target_reason);
-	}
-	else
-	{
-		reason = "No kick reason provided";
-	}
 
 	client.on_button_click([&client, reason, user_targeted, guild_target](const dpp::button_click_t& event) {
 		if (event.custom_id == "ban_id")

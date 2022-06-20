@@ -27,21 +27,15 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 			- Role check is still under process!
 			- I decide to make button too, since we need to confirm that they want to kick,
 			not a mistake.
+			- To avoid NULL pointer, I have make `if (guild_find) to prevent
+			NULL pointer warning.
+			- For more information about this way, please head up to:
+			https://docs.microsoft.com/en-us/cpp/code-quality/c6011?view=msvc-170
 		
 		Thanks!
 	*/
 
 	/* ------------------- I still making it, please wait ------------------- */
-
-	/*
-		Please note:
-			- To avoid NULL pointer, I have make `if (guild_find) to prevent
-			NULL pointer warning.
-			- For more information about this way, please head up to:
-			https://docs.microsoft.com/en-us/cpp/code-quality/c6011?view=msvc-170
-
-		Thanks!
-	*/
 
 	// If the interaction location is not a guild
 	if (!guild_find)
@@ -68,36 +62,6 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 
 	// Role check is making ...
 
-	// Confirmation button
-	dpp::message kick_confirm("Do you want to kick? Press the button below to confirm");
-
-	kick_confirm.add_component(
-		dpp::component()
-			.add_component(
-				dpp::component()
-					.set_label("Kick")
-					.set_type(dpp::cot_button)
-					.set_style(dpp::cos_danger)
-					.set_id("kick_id")
-			).add_component(
-				dpp::component()
-				.set_label("Cancel")
-				.set_type(dpp::cot_button)
-				.set_style(dpp::cos_secondary)
-				.set_id("cancel_id")
-			)
-	);
-
-	event.reply(
-		kick_confirm.set_flags(dpp::m_ephemeral)
-	);
-
-	/*
-		- I got an error:
-			] ERROR: Error 10015 [Unknown Webhook] on API request, returned 
-			content was: {"message": "Unknown Webhook", "code": 10015}
-	*/
-
 	// Check if we have reason or not
 	if (std::holds_alternative<std::string>(target_reason))
 	{
@@ -107,6 +71,36 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 	{
 		reason = "No kick reason provided";
 	}
+
+	// Confirmation button
+	dpp::message kick_confirm("Do you want to kick? Press the button below to confirm");
+
+	kick_confirm.add_component(
+		dpp::component()
+		.add_component(
+			dpp::component()
+			.set_label("Kick")
+			.set_type(dpp::cot_button)
+			.set_style(dpp::cos_danger)
+			.set_id("kick_id")
+		).add_component(
+			dpp::component()
+			.set_label("Cancel")
+			.set_type(dpp::cot_button)
+			.set_style(dpp::cos_secondary)
+			.set_id("cancel_id")
+		)
+	);
+
+	event.reply(
+		kick_confirm.set_flags(dpp::m_ephemeral)
+	);
+
+	/*
+		- I got an error:
+		] ERROR: Error 10003 [Unknown Channel] on API request, 
+		returned content was: {"message": "Unknown Channel", "code": 10003}
+	*/
 
 	client.on_button_click([&client, reason, user_targeted, guild_target](const dpp::button_click_t& event) {
 		if (event.custom_id == "kick_id")
@@ -121,7 +115,7 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 			std::string kick_content = fmt::format("<@{}> has been kicked!", user_targeted);
 
 			// Reply when got kicked
-			event.reply(
+			client.message_edit(
 				dpp::message()
 				.set_flags(dpp::m_ephemeral)
 				.set_content(kick_content)
@@ -139,7 +133,7 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 			std::string cancel_content("Cancelled request!");
 
 			// Reply when cancelled
-			event.reply(
+			client.message_edit(
 				dpp::message()
 				.set_flags(dpp::m_ephemeral)
 				.set_content(cancel_content)
@@ -152,7 +146,7 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 			);
 		}
 		});
-
+	
 	/* ---------------------------------------------------------------------- */	
 
 	// Interaction reply check
