@@ -155,6 +155,7 @@
     <None Include=".github\ISSUE_TEMPLATE\custom.md" />
     <None Include=".github\ISSUE_TEMPLATE\feature_request.md" />
     <None Include="config.json" />
+    <None Include="example.config.json" />
     <None Include="include\dpp-lib-10.0\dpp-config-version.cmake" />
     <None Include="include\dpp-lib-10.0\dpp-release.cmake" />
     <None Include="include\dpp-lib-10.0\dpp.cmake" />

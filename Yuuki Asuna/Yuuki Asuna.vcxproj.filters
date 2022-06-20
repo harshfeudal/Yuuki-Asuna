@@ -46,6 +46,7 @@
     <None Include=".github\ISSUE_TEMPLATE\custom.md" />
     <None Include=".github\ISSUE_TEMPLATE\feature_request.md" />
     <None Include="config.json" />
+    <None Include="example.config.json" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\dpp-include-10.0\dpp\appcommand.h">
