@@ -30,7 +30,7 @@
     <ClCompile Include="src\ban.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\deploy_commands.cpp">
+    <ClCompile Include="src\userinfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -277,7 +277,7 @@
     <ClInclude Include="commands\ban.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="commands\deploy_commands.h">
+    <ClInclude Include="commands\userinfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
