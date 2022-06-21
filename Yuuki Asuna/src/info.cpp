@@ -59,18 +59,6 @@ void info_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 					"source_code",
 					"Github link for Asuna source code"
 				))
-
-			/* Vote is now not supported because haven't done
-			
-			.add_select_option(
-				dpp::select_option(
-					"Vote",
-					"vote",
-					"Vote for Asuna!"
-				))
-			.set_id("information")
-
-			*/
 		)
 	);
 

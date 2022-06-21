@@ -101,10 +101,8 @@ void ban_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 
 	/*
 		- I got an error:
-			1. ] ERROR: Error 10003 [Unknown Channel] on API request,
-			returned content was: {"message": "Unknown Channel", "code": 10003}
-			2. ] ERROR: Error 10015 [Unknown Webhook] on API request, returned
-			content was: {"message": "Unknown Webhook", "code": 10015}
+			1. ] ERROR: Error 40060 [Interaction has already been acknowledged.] on API request,
+			returned content was: {"message": "Interaction has already been acknowledged.", "code": 40060}
 	*/
 
 	client.on_button_click([&client, reason, user_targeted, guild_target](const dpp::button_click_t& event) {
@@ -121,6 +119,7 @@ void ban_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 
 			// Reply when got banned
 			event.reply(
+				dpp::interaction_response_type::ir_update_message,
 				dpp::message()
 				.set_flags(dpp::m_ephemeral)
 				.set_content(ban_content)
@@ -139,6 +138,7 @@ void ban_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 
 			// Reply when cancelled
 			event.reply(
+				dpp::interaction_response_type::ir_update_message,
 				dpp::message()
 				.set_flags(dpp::m_ephemeral)
 				.set_content(cancel_content)

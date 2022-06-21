@@ -30,6 +30,9 @@
     <ClCompile Include="src\ban.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\deploy_commands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\dpp-lib-10.0\dpp.cmake" />
@@ -272,6 +275,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="commands\ban.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="commands\deploy_commands.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
