@@ -117,7 +117,7 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 			std::string kick_content = fmt::format("<@{}> has been kicked!", user_targeted);
 
 			// Reply when got kicked
-			event.edit_response(
+			event.reply(
 				dpp::message()
 				.set_flags(dpp::m_ephemeral)
 				.set_content(kick_content)
@@ -135,7 +135,7 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 			std::string cancel_content("Cancelled request!");
 
 			// Reply when cancelled
-			event.edit_response(
+			event.reply(
 				dpp::message()
 				.set_flags(dpp::m_ephemeral)
 				.set_content(cancel_content)
