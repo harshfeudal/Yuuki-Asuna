@@ -66,53 +66,6 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 		reason = "No kick reason provided";
 	}
 
-	client.on_button_click([&client](const dpp::button_click_t& event) {
-		if (event.custom_id == "kick_id")
-		{
-			// Provide reason audit log
-			client.set_audit_reason(reason);
-
-			// Kick member
-			client.guild_member_kick(guild_target, user_targeted);
-
-			// Announce when kicked
-			std::string kick_content = fmt::format("<@{}> has been kicked!", user_targeted);
-
-			// Reply when got kicked
-			event.reply(
-				dpp::interaction_response_type::ir_update_message,
-				dpp::message()
-				.set_flags(dpp::m_ephemeral)
-				.set_content(kick_content)
-			);
-
-			// Interaction reply check
-			fmt::print(
-				"[running] kick command - kick button replied from {}\n",
-				event.command.usr.format_username()
-			);
-		}
-		else if (event.custom_id == "cancel_id")
-		{
-			// Announce when cancelled
-			std::string cancel_content("Cancelled request!");
-
-			// Reply when cancelled
-			event.reply(
-				dpp::interaction_response_type::ir_update_message,
-				dpp::message()
-				.set_flags(dpp::m_ephemeral)
-				.set_content(cancel_content)
-			);
-
-			// Interaction reply check
-			fmt::print(
-				"[running] kick command - cancel button replied from {}\n",
-				event.command.usr.format_username()
-			);
-		}
-		});
-
 	event.reply(
 		kick_confirm.set_flags(dpp::m_ephemeral)
 	);
