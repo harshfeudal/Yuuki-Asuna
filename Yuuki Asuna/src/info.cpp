@@ -9,6 +9,16 @@ void info_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 {
 	/* ------------------- I still making it, please wait ------------------- */
 
+	/*
+		I got an error:
+
+			1. ] ERROR: Error 50035 [Invalid Form Body] on API request, 
+		returned content was: {"code": 50035, "errors": {"data": {"components": {"0": {"components": {"0": 
+		{"custom_id": {"_errors": [{"code": "BASE_TYPE_REQUIRED", "message": "This field is required"}]}}}}}}}, 
+		"message": "Invalid Form Body"}
+		
+	*/
+
 	// The info command will be used menu system, we have a lot of info!
 	dpp::message content("Select a category you'd like to know");
 
@@ -31,9 +41,9 @@ void info_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 				))
 			.add_select_option(
 				dpp::select_option(
-					"Asuna status",
-					"status",
-					"Show Asuna working status"
+					"Report bugs",
+					"bugs",
+					"Report Asuna bugs"
 				))
 			.add_select_option(
 				dpp::select_option(
@@ -59,6 +69,7 @@ void info_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 					"source_code",
 					"Github link for Asuna source code"
 				))
+			.set_id("information")
 		)
 	);
 

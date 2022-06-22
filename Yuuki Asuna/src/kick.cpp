@@ -46,10 +46,9 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 			.set_content("You cannot use this command outside the server")
 		);
 	}
-
-	// Check permission: if they don't have KICK_MEMBERS permission
-	if (guild_find)
+	else if (guild_find)
 	{
+		// Check permission: if they don't have KICK_MEMBERS permission
 		if (!(guild_find->base_permissions(&event.command.usr).has(dpp::p_kick_members)))
 		{
 			event.reply(
@@ -106,7 +105,7 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 		if (event.custom_id == "kick_id")
 		{
 			// Provide reason audit log
-			// client.set_audit_reason(reason);
+			client.set_audit_reason(reason);
 
 			// Kick member
 			client.guild_member_kick(guild_target, user_targeted);
