@@ -178,8 +178,8 @@ int main()
 		}
 	});
 
-	// Some functions handle here
-	void kick_button_function_h();
+	/*-------------------- Kick command --------------------*/
+
 
 	// Bot start
 	client.start(false);

@@ -7,38 +7,14 @@
 
 void ban_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 {
-	// Target a user mentioned
+	// Target a user mentioned, make reason and prune day
 	auto target_user = event.get_parameter("member");
-	dpp::snowflake user_targeted = std::get<dpp::snowflake>(target_user);
-
-	// Making reason
 	auto target_reason = event.get_parameter("reason");
-	std::string reason;
-
-	// Message purge day
 	auto purgeDay = event.get_parameter("day");
+	user_targeted = std::get<dpp::snowflake>(target_user);
 
 	// Guild find and get the guild ID
 	auto* guild_find = dpp::find_guild(event.command.guild_id);
-	dpp::snowflake guild_target = event.command.guild_id;
-
-	// Find the bot position role
-
-	/*
-		Note:
-			- It's still under-construction!
-			- Role check is still under process!
-			- I decide to make button too, since we need to confirm that they want to kick,
-			not a mistake.
-			- To avoid NULL pointer, I have make `if (guild_find) to prevent
-			NULL pointer warning.
-			- For more information about this way, please head up to:
-			https://docs.microsoft.com/en-us/cpp/code-quality/c6011?view=msvc-170
-
-		Thanks!
-	*/
-
-	/* ------------------- I still making it, please wait ------------------- */
 
 	// If the interaction location is not a guild
 	if (!guild_find)
@@ -62,8 +38,6 @@ void ban_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 		}
 	}
 
-	// Role check is making ...
-	
 	// Check if we have reason or not
 	if (std::holds_alternative<std::string>(target_reason))
 	{
@@ -98,13 +72,7 @@ void ban_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 		ban_confirm.set_flags(dpp::m_ephemeral)
 	);
 
-	/*
-		- I got an error:
-			1. ] ERROR: Error 40060 [Interaction has already been acknowledged.] on API request,
-			returned content was: {"message": "Interaction has already been acknowledged.", "code": 40060}
-	*/
-
-	client.on_button_click([&client, reason, user_targeted, guild_target](const dpp::button_click_t& event) {
+	client.on_button_click([&client](const dpp::button_click_t& event) {
 		if (event.custom_id == "ban_id")
 		{
 			// Provide reason audit log
@@ -151,11 +119,29 @@ void ban_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 		}
 		});
 
-	/* ---------------------------------------------------------------------- */
-
 	// Interaction reply check
 	fmt::print(
 		"[running] ban command replied from {}\n",
 		event.command.usr.format_username()
 	);
 }
+
+/*
+		Note:
+			- It's still under-construction!
+			- Role check is still under process!
+			- I decide to make button too, since we need to confirm that they want to kick,
+			not a mistake.
+			- To avoid NULL pointer, I have make `if (guild_find) to prevent
+			NULL pointer warning.
+			- For more information about this way, please head up to:
+			https://docs.microsoft.com/en-us/cpp/code-quality/c6011?view=msvc-170
+
+		Thanks!
+*/
+
+/*
+		- I got an error:
+			1. ] ERROR: Error 40060 [Interaction has already been acknowledged.] on API request,
+			returned content was: {"message": "Interaction has already been acknowledged.", "code": 40060}
+*/
