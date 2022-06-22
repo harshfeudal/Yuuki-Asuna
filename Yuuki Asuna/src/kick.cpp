@@ -106,7 +106,7 @@ void kick_h(dpp::cluster& client, const dpp::slashcommand_t& event)
 		if (event.custom_id == "kick_id")
 		{
 			// Provide reason audit log
-			// client.set_audit_reason(reason);
+			client.set_audit_reason(reason);
 
 			// Kick member
 			client.guild_member_kick(guild_target, user_targeted);
