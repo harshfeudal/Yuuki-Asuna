@@ -66,14 +66,6 @@ std::map<std::string, cmd_def> commands
 						"Reason why they got ban",
 						false
 					)
-				/*
-					dpp::command_option(
-						dpp::co_integer,
-						"day",
-						"Purge their messages within 7 days",
-						false
-					)
-				*/
 				}
 			}
 	},
@@ -185,6 +177,9 @@ int main()
 			cmd_filter->second.func(client, event);
 		}
 	});
+
+	// Some functions handle here
+	void kick_button_function_h();
 
 	// Bot start
 	client.start(false);
